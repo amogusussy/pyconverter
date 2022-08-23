@@ -1,0 +1,21 @@
+#!/usr/bin/python3
+import requests
+import json
+import sys
+
+#Request related
+URL = "https://cdn.moneyconvert.net/api/latest.json"
+resp = requests.get(url=URL)
+data = resp.json()["rates"]
+
+# Arg related
+args = sys.argv
+start = args[1].upper()
+end = args[2].upper()
+val = float(args[3])
+
+# Convert
+toUSD = float(val / data[start])
+toEnd = toUSD * data[end]
+
+print("{:.2f}".format(toEnd))
